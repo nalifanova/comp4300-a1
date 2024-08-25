@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
+# Name is Game04 'coz of the number of the lesson
 project(Game04 LANGUAGES CXX)
 
 # require C++17
@@ -58,7 +59,7 @@ include_directories(include)
 #include_directories(imgui) # include header files
 # -- end of create a lib
 
-add_executable(main
+add_executable(${PROJECT_NAME}
     src/main.cpp
     src/load_files.cpp
     src/initial_code.cpp
@@ -78,16 +79,24 @@ add_executable(main
 
 
 # Yep, that's it!
-target_link_libraries(main PUBLIC ImGui-SFML::ImGui-SFML)
+target_link_libraries(${PROJECT_NAME} PUBLIC ImGui-SFML::ImGui-SFML)
 
-#target_link_libraries(main PUBLIC imgui_lib) # add a imgui_lib
-target_link_libraries(main PRIVATE sfml-graphics)
-target_compile_features(main PRIVATE cxx_std_17)
+#target_link_libraries(${PROJECT_NAME} PUBLIC imgui_lib) # add a imgui_lib
+target_link_libraries(${PROJECT_NAME} PRIVATE sfml-graphics)
+target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 
 if(WIN32)
     add_custom_command(
-        TARGET main
+        TARGET ${PROJECT_NAME}
         COMMENT "Copy OpenAL DLL"
-        PRE_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${SFML_SOURCE_DIR}/extlibs/bin/$<IF:$<EQUAL:${CMAKE_SIZEOF_VOID_P},8>,x64,x86>/openal32.dll $<TARGET_FILE_DIR:main>
+        PRE_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${SFML_SOURCE_DIR}/extlibs/bin/$<IF:$<EQUAL:${CMAKE_SIZEOF_VOID_P},8>,x64,x86>/openal32.dll $<TARGET_FILE_DIR:${PROJECT_NAME}>
         VERBATIM)
 endif()
+
+file(
+    COPY ${CMAKE_SOURCE_DIR}/assets/data/config.txt
+    DESTINATION ${CMAKE_BINARY_DIR}/assets/data
+)
+
+file(GLOB fonts ${CMAKE_SOURCE_DIR}/assets/fonts/*.ttf)
+file(COPY ${fonst} DESTINATION ${CMAKE_BINARY_DIR}/assets/fonts)
