@@ -18,10 +18,7 @@ be able to finish the assignment.
 ## How to compile and run
 
 ```bash
-mkdir mybuild && cd mybuild
-cmake ..
-make
-cp -r ../assets ../.. # I should think of a better way with paths
+chmod +x PlayGame.sh && ./PlayGame.sh
 ```
 
 ## Dev Notes
