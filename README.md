@@ -14,6 +14,8 @@ There was a code, it is in `initial_code.cpp` file, given by Dave as an example.
 It took me some time to get acquainted with SMFL library and ImGui as well to
 be able to finish the assignment.
 
+![SFML / ImGui ](assets/images/sfml_imgui.png)
+
 
 ## How to compile and run
 
